@@ -1,0 +1,40 @@
+# yum and service modules with sudo access
+# Using lists
+---
+- hosts: web
+  become: yes
+  tasks:
+
+# This task will install apache http server and wget
+  - name: Install Apache & Wget
+    yum:
+      state: present
+      name: ["httpd","wget"]
+
+# This task will install elinks and nc
+  - name: Install Elinks & NetCat
+    yum:
+      state: present
+      name: 
+       - elinks
+       - nmap-ncat
+
+# This task will start apache http server
+  - name: Start Apache
+    service:
+      name: httpd 
+      state: started 
+      enabled: yes
+
+# This task will copy index.html file to /var/www/html
+  - name: Copy index page
+    copy: 
+      src: 08/index.html 
+      dest: /var/www/html/index.html
+
+# This task will copy contact.html file to /var/www/html
+  - name: Copy contact page
+    copy: 
+      src: 08/contact.html 
+      dest: /var/www/html/contact.html
+
