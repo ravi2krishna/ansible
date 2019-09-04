@@ -1,0 +1,30 @@
+# yum and service modules with sudo access
+
+---
+- hosts: web
+  become: yes
+  tasks:
+
+# This task will install apache http server
+  - name: Install Apache
+    yum: name=httpd state=present
+
+# This task will start apache http server
+  - name: Start Apache
+    service: name=httpd state=started enabled=yes
+
+# This task will install elinks a text browser
+  - name: Install Elinks
+    yum: name=elinks state=present
+
+# This task will install wget a download utility
+  - name: Install Wget
+    yum: name=wget state=present
+
+# This task will copy index.html file to /var/www/html
+  - name: Copy index page
+    copy: src=08/index.html dest=/var/www/html/index.html
+
+# This task will copy contact.html file to /var/www/html
+  - name: Copy contact page
+    copy: src=08/contact.html dest=/var/www/html/contact.html
