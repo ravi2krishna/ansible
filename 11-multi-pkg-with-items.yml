@@ -1,0 +1,33 @@
+# yum and service modules with sudo access
+# Using lists
+# Using Looping with with_items
+
+---
+- hosts: web
+  become: yes
+  tasks:
+
+# This task will install apache http server and wget
+  - name: Install Apache & Wget
+    yum:
+      state: present
+      name: ["httpd","wget","elinks","nmap-ncat"]
+
+# This task will start apache http server
+  - name: Start Apache
+    service:
+      name: httpd 
+      state: started 
+      enabled: yes
+
+# This task will copy index.html and contact.html file to /var/www/html
+  - name: Copy HTML page
+    copy: 
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    with_items:
+      - src: 08/index.html
+        dest: /var/www/html/index.html
+      - src: 08/contact.html
+        dest: /var/www/html/contact.html
+
