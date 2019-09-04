@@ -1,0 +1,15 @@
+
+---
+- hosts: all
+  
+  tasks:
+
+  - name: Create File1
+    file: 
+      path: "/home/ninja/file1.txt"
+      state: touch
+    
+  - name: Create File2
+    file: 
+      path: "/home/ninja/file2.txt"
+      state: touch
