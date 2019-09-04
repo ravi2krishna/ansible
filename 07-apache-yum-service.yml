@@ -7,7 +7,7 @@
 
 # This task will install apache http server
   - name: Install Apache
-    yum: name=httpd state=present
+    yum: name=httpd state: present
 
 # This task will start apache http server
   - name: Start Apache
