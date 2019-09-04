@@ -1,0 +1,17 @@
+# Goal is to copy the file from one remote to another remote using synchronize module
+# Here db is where the task should executed and it's hostname is c2
+# delegate_to: c1 
+# c1 is the hostname of the web server i.e where the source file remote1.txt is present
+# Make sure ssh is established from c1 to c2 i.e from web to db
+
+---
+- hosts: db
+  tasks:
+
+# This task will copy file from remote1 to remote2
+  - name: Copy Remote - Remote 
+    synchronize: 
+      src: "/home/ninja/remote1.txt"
+      dest: "/tmp/remote2.txt"
+    delegate_to: c1
+
