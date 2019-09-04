@@ -1,0 +1,30 @@
+---
+- hosts: all
+  
+  tasks:
+
+# This task will copy file from contoller to remote
+  - name: Copy File from Ansible Controller to remote servers
+    copy: 
+      src: "/home/ninja/server.txt"
+      dest: "/home/ninja/remote.txt"
+    
+# This task will copy drectory from contoller to remote
+  - name: Copy Directory from Ansible Controller to remote servers
+    copy: 
+      src: "/home/ninja/ecomm"
+      dest: "/home/ninja/remote-dir"
+
+# This task will copy file from remote to remote
+  - name: Copy File from Ansible Controller to remote servers
+    copy: 
+      src: "/home/ninja/remote.txt"
+      dest: "/tmp/remote.txt"
+      remote_src: yes
+    
+# This task will copy drectory from remote to remote
+  - name: Copy Directory from Ansible Controller to remote servers
+    copy: 
+      src: "/home/ninja/remote-dir"
+      dest: "/tmp/remote-dir"
+      remote_src: yes
