@@ -1,0 +1,14 @@
+# yum and service modules with sudo access
+
+---
+- hosts: web
+ #become: yes
+  tasks:
+
+# This task will install apache http server
+  - name: Install Apache
+    yum: name= httpd state: present
+
+# This task will start apache http server
+  - name: Start Apache
+    service: name= httpd state=started enabled=yes
