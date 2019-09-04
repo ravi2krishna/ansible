@@ -1,0 +1,13 @@
+# Command Module 
+
+---
+- hosts: web
+  tasks:
+
+# This task will install apache http server
+  - name: Install Apache
+    command: sudo yum -y install httpd  
+
+# This task will start apache http server
+  - name: Start Apache
+    command: sudo service httpd start
