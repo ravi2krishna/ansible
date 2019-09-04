@@ -1,0 +1,21 @@
+# Goal is to copy the file from one remote to another remote.
+# It's a two-step process when it comes to this method i.e Fetch then Copy
+
+---
+- hosts: web  
+  tasks:
+
+# This task will fetch file from remote1 to controller
+  - name: Fetch file from remote1 to controller 
+    fetch: 
+      src: "/home/ninja/remote1.txt"
+      dest: "/home/ninja/remote2.txt"
+
+- hosts: db
+  tasks:
+
+# This task will copy file from controller to remote2
+  - name: Copy file from controller to remote2
+    copy: 
+      src: "/home/ninja/remote2.txt"
+      dest: "/tmp/remote2.txt"
