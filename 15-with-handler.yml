@@ -1,0 +1,56 @@
+# yum and service modules with sudo access
+# using selinux module to set the target to permissive mode
+
+---
+- hosts: web
+  become: yes
+  handlers: 
+# This handler will restart apache http server
+  - name: Restart Apache
+    service:
+      name: httpd 
+      state: restarted
+
+  tasks:
+
+# This task will set the SELinux to Permissive mode
+  - name: Put SELinux in permissive mode
+    selinux:
+      policy: targeted
+      state: permissive
+
+# This task will install apache http server
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: present
+
+# This task will start apache http server
+  - name: Start Apache
+    service:
+      name: httpd 
+      state: started 
+      enabled: yes
+
+# This task will copy custom httpd.conf file to /etc/httpd/conf/httpd.conf
+# This will also call the hander Restart Apache
+  - name: Copy apache config with port 80 defined
+    copy: 
+      src: 13/httpd.conf 
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Restart Apache
+
+# This task will Install PHP
+  - name: Install PHP
+    yum:
+      name: php
+      state: present
+    notify:
+      - Restart Apache
+
+# This task will copy date.php to /var/www/html
+  - name: Copy php file
+    copy: 
+      src: 14/date.php
+      dest: /var/www/html/date.php
