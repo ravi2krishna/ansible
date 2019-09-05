@@ -2,7 +2,7 @@
 # using selinux module to set the target to permissive mode
 
 ---
-- hosts: db
+- hosts: web
   become: yes
   handlers: 
 # This handler will restart apache http server
