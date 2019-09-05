@@ -1,0 +1,59 @@
+# yum and service modules with sudo access
+# using selinux module to set the target to permissive mode
+
+---
+- hosts: web
+  become: yes
+  handlers: 
+# This handler will restart apache http server
+  - name: Restart Apache
+    service:
+      name: httpd 
+      state: restarted
+    listen: "Restart All Services"
+
+# This handler will restart nginx server
+  - name: Restart Nginx
+    service:
+      name: nginx 
+      state: restarted
+    listen: "Restart All Services"
+
+  tasks:
+
+# This task will set the SELinux to Permissive mode
+  - name: Put SELinux in permissive mode
+    selinux:
+      policy: targeted
+      state: permissive
+
+# This task will install apache http server
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: present
+
+# This task will install ngixn server
+  - name: Install Nginx
+    yum:
+      name: nginx
+      state: present
+
+# This task will copy custom httpd.conf file to /etc/httpd/conf/httpd.conf
+# This will also call the hander Restart Apache
+  - name: Copy apache config with port 8081 defined
+    copy: 
+      src: 12/httpd.conf 
+      dest: /etc/httpd/conf/httpd.conf
+
+# This task will copy custom nginx.conf file to /etc/nginx/nginx.conf
+# This will also call the hander Restart Apache
+  - name: Copy nginx config with port 8090 defined
+    copy: 
+      src: 16/nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+# This task will restart everything
+  - name: Restart Everything
+    command: echo "this task will restart all the services"
+    notify: "Restart All Services"
