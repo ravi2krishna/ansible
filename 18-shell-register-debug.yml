@@ -22,7 +22,7 @@
       - /tmp/2.rpm
       - /tmp/3.rpm
 
-# This task will find txt files 
+# This task will find rpm files 
   - name: Find files
     shell: find *.rpm
     args:
