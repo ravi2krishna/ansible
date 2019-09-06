@@ -1,0 +1,33 @@
+# Register & Shell  
+
+---
+- hosts: web
+  tasks:
+
+# This task run as root & stores username 
+  - name: Find username
+    become: yes
+    shell: whoami
+    register: username
+  - debug: msg={{ username }}
+
+# This task create a file with above owner
+  - name: Create File
+    become: yes
+    file: 
+      path: /tmp/info.txt
+      state: touch
+      owner: "{{ username.stdout }}" 
+
+# This task run as ninja & stores username 
+  - name: Find username
+    shell: whoami
+    register: username
+  - debug: msg={{ username }}
+
+# This task create a file with above owner
+  - name: Create File
+    file: 
+      path: /tmp/hello.txt
+      state: touch
+      owner: "{{ username.stdout }}" 
