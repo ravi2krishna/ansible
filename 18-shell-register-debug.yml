@@ -1,0 +1,39 @@
+# Shell Module 
+
+---
+- hosts: web
+  tasks:
+
+# This task will use environment variables
+  - name: Ansible shell module environment variables
+    shell: echo $USER
+    register: command_result
+
+  - debug: msg={{ command_result }}
+  - debug: msg={{ command_result.stdout }}
+
+# This task will create files 
+  - name: Create three files 
+    file: 
+      path: "{{ item }}"
+      state: touch
+    with_items:
+      - /tmp/1.rpm
+      - /tmp/2.rpm
+      - /tmp/3.rpm
+
+# This task will find txt files 
+  - name: Find files
+    shell: find *.rpm
+    args:
+      chdir: /tmp
+    register: with_output
+  - debug: msg={{ with_output }}
+
+# This task will create backup for above files
+  - name: Backing up files
+    shell: cp {{ item }} {{item}}_bak
+    args:
+      chdir: /tmp
+    with_items:
+      - "{{ with_output.stdout_lines }}"
