@@ -27,8 +27,8 @@
     shell: find *.rpm
     args:
       chdir: /tmp
-    register: with_output
-  - debug: msg={{ with_output }}
+    register: files_list
+  - debug: msg={{ files_list }}
 
 # This task will create backup for above files
   - name: Backing up files
@@ -36,4 +36,4 @@
     args:
       chdir: /tmp
     with_items:
-      - "{{ with_output.stdout_lines }}"
+      - "{{ files_list.stdout_lines }}"
