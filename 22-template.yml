@@ -14,8 +14,3 @@
       src: 22/file22.j2
       dest: /home/ninja/file22.txt
 
-# This task will use loop in template
-  - name: 
-    template: 
-      src: 22/file22.j2
-      dest: /home/ninja/file22.txt
