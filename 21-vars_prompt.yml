@@ -1,0 +1,30 @@
+# Vars
+
+---
+- hosts: web
+  vars:
+    database: mysql
+    db_port: 3306
+  
+# Var_prompts will prompt for input
+  vars_prompt:
+  - name: "username"
+    prompt: "Enter Username"
+    private: no  
+
+  - name: "password"
+    prompt: "Enter Password"
+
+  tasks:
+# This task will print the variables defined
+  - name: Using variables
+    debug: 
+      msg: "The Database used is {{ database }} and is running on {{ db_port }} with user {{ username }}"
+      #msg: "The Database used is {{ database }} and is running on {{ db_port }} with user {{ username }}"
+
+# This task will store the variables in file
+  - name: Storing the variables to file dynamically
+    copy: 
+      dest: "/home/ninja/myvar21.txt"
+      content: "{{ username }} {{ password }}" 
+
