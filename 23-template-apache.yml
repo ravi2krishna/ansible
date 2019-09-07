@@ -31,7 +31,7 @@
 # This will copy site file
   - name: Copy index template from templates
     template: 
-      src: 23/templates/index.html 
+      src: 23/templates/index.j2
       dest: "{{ doc_root }}"
 
 # This task will copy custom httpd.conf file to /etc/httpd/conf/httpd.conf
