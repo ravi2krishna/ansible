@@ -5,11 +5,17 @@
   vars:
     database: mysql
     db_port: 3306
+    pkg_list: ['wget','elinks','zip', 'unzip']
   
   tasks:
-# This task will use temaplte
+# This task will use template to hold variables
   - name: Basic Template
     template: 
       src: 22/file22.j2
       dest: /home/ninja/file22.txt
 
+# This task will use loop in template
+  - name: 
+    template: 
+      src: 22/file22.j2
+      dest: /home/ninja/file22.txt
