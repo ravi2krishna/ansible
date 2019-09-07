@@ -1,0 +1,8 @@
+# This task will start and enable apache
+
+  - name: Start and Enable Apache
+    service:
+      name: httpd 
+      state: started
+      enabled: yes
+

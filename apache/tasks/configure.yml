@@ -1,0 +1,20 @@
+# This task will copy custom httpd.conf file to /etc/httpd/conf/httpd.conf
+# This task will set SELinux to permissive
+
+  - name: Put SELinux in permissive mode
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Copy index template from templates
+    template: 
+      src: templates/index.j2
+      dest: "{{ doc_root }}/index.html"
+
+  - name: Copy apache config with port 80 defined
+    copy: 
+      src: files/httpd.conf 
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Restart Apache
+

@@ -1,0 +1,4 @@
+---
+# vars file for apache
+    username: ravi
+    doc_root: /var/www/html
