@@ -1,0 +1,15 @@
+# Templates
+
+---
+- hosts: web
+  vars:
+    database: mysql
+    db_port: 3306
+  
+  tasks:
+# This task will use temaplte
+  - name: Basic Template
+    template: 
+      src: 22/file22.j2
+      dest: /home/ninja/file22.txt
+
