@@ -1,0 +1,24 @@
+# Vars
+
+---
+- hosts: web
+  vars:
+    username: ravi
+  tasks:
+  
+# This task will print the variables defined
+  - debug: msg={{ username }}
+
+# This task will create a file with variable as content
+  - name: Create File with username as content
+    copy: 
+      dest: "/home/ninja/myvar.txt"
+      content: "{{ username }}" 
+
+# This task will create a file with owner as variable
+  - name: Create File
+    become: yes
+    file: 
+      path: /tmp/20.txt
+      state: touch
+      owner: "{{ username }}"
