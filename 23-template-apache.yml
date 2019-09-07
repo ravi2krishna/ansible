@@ -32,7 +32,7 @@
   - name: Copy index template from templates
     template: 
       src: 23/templates/index.j2
-      dest: "{{ doc_root }}"
+      dest: "{{ doc_root }}/index.html"
 
 # This task will copy custom httpd.conf file to /etc/httpd/conf/httpd.conf
 # This will also call the hander Restart Apache
