@@ -1,0 +1,50 @@
+# yum and service modules with sudo access
+
+---
+- hosts: web
+  become: yes
+  vars: 
+    username: ravi
+    doc_root: /var/www/html
+  tasks:
+
+# This task will update apt-get repo
+  - name: Update apt-get repo
+    apt:
+      upgrade: yes
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+
+# This task will install apache http server
+  - name: Install apache2
+    package:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: Install httpd
+    package:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+
+# This task will start apache http server
+  - name: Start httpd
+    service:
+      name: httpd 
+      state: started 
+      enabled: yes
+    when: ansible_os_family == "RedHat"
+
+  - name: Start apache2
+    service:
+      name: apache2
+      state: started 
+      enabled: yes
+    when: ansible_os_family == "Debian"
+
+# This will copy site file
+  - name: Copy index template from templates
+    template: 
+      src: 24/templates/index.j2
+      dest: "{{ doc_root }}/index.html"
