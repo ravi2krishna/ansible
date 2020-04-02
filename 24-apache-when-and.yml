@@ -1,0 +1,57 @@
+- hosts: all
+  become: yes
+  vars:
+    username: ravi
+    category: webservers
+    doc_root: /var/www/html
+  tasks:
+  
+  # Update Apt Manager
+  - name: Update Package Manager
+    apt:
+      update_cache: yes
+    when: ansible_os_family == "Debian" and ansible_distribution_version == "18.04"
+  
+  # Only run this task on Rehdat Family
+  - name: Install Apache Package
+    package:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+
+  # Only run this task on Rehdat Family
+  - name: Start Apache Service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_os_family == "RedHat"
+
+  # Only run this task on Debian Family
+  - name: Install Apache Package
+    package:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+
+  # Only run this task on Debian Family
+  - name: Start Apache Service
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_os_family == "Debian"
+
+  # Should Execute Only on Ubuntu 16
+  - name: With Template Module
+    template:
+      src: /home/centos/ansible/old.j2
+      dest: "{{ doc_root }}/old.html"
+    when: ansible_os_family == "Debian" and ansible_distribution_version == "16.04"
+  
+  # Should Execute Only on Ubuntu 18
+  - name: With Template Module
+    template:
+      src: /home/centos/ansible/new.j2
+      dest: "{{ doc_root }}/new.html"
+    when: ansible_os_family == "Debian" and ansible_distribution_version == "18.04"
