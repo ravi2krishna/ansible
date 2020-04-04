@@ -6,14 +6,14 @@
   
   - name: Create File1 with content
     copy: 
-      dest: "/home/ninja/file1.txt"
+      dest: "/tmp/file1.txt"
       content: | 
         hey
         hello  
     
   - name: Create File2
     copy: 
-      dest: "/home/ninja/file2.txt"
+      dest: "/tmp/file2.txt"
       content: >
         hey
         hello
