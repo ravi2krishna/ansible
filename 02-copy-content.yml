@@ -2,9 +2,8 @@
 # > - will print the seperated lines, as one single line
 ---
 - hosts: all
-  
   tasks:
-
+  
   - name: Create File1 with content
     copy: 
       dest: "/home/ninja/file1.txt"
